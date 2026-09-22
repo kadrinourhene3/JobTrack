@@ -201,17 +201,46 @@ npx expo export --platform android --output-dir dist/android
 npx expo export --platform ios --output-dir dist/ios
 npx expo export --platform web --output-dir dist/web
 ```
+## 📱 Screenshots
 
-## Screenshots
+### Home & Applications
 
-Add portfolio screenshots here after connecting the target Supabase project:
+## 📱 Screenshots
 
-- `docs/screenshots/dashboard-light.png`
-- `docs/screenshots/applications-dark.png`
-- `docs/screenshots/application-detail.png`
-- `docs/screenshots/ai-resume-analysis.png`
-- `docs/screenshots/analytics.png`
+### Home & Applications
 
+<p align="center">
+  <img src="docs/screenshots/home.png.jpg" width="250" alt="JobTrack Home Dashboard" />
+  <img src="docs/screenshots/applications.png.jpg" width="250" alt="JobTrack Applications" />
+  <img src="docs/screenshots/add-application.png.jpg" width="250" alt="Add Application" />
+</p>
+
+### AI Career Assistant
+
+<p align="center">
+  <img src="docs/screenshots/ai-career.png.jpg" width="250" alt="AI Career Assistant" />
+  <img src="docs/screenshots/resume-analyzer.png.jpg" width="250" alt="Resume Analyzer" />
+  <img src="docs/screenshots/job-match.png.jpg" width="250" alt="Job Match" />
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/cover-letter.png.jpg" width="250" alt="Cover Letter Generator" />
+  <img src="docs/screenshots/interview-coach.png.jpg" width="250" alt="Interview Coach" />
+</p>
+
+### Analytics
+
+<p align="center">
+  <img src="docs/screenshots/analytics.png.jpg" width="250" alt="JobTrack Analytics" />
+  <img src="docs/screenshots/analytics-details.png.jpg" width="250" alt="Analytics Details" />
+</p>
+
+### Profile
+
+<p align="center">
+  <img src="docs/screenshots/profile.png.jpg" width="250" alt="JobTrack Profile" />
+  <img src="docs/screenshots/profile-settings.png.jpg" width="250" alt="Profile Settings" />
+</p>
 ## Future improvements
 
 - Google OAuth after provider and native redirect configuration
