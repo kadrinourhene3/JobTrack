@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "JobTrack",
+    "slug": "jobtrack",
+    "scheme": "jobtrack",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jobtrack.mobile"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#5B5FEF"
+      },
+      "package": "com.jobtrack.mobile"
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#F6F7FB"
+        }
+      ],
+      "expo-notifications",
+      "expo-document-picker",
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": false,
+          "microphonePermission": false,
+          "photosPermission": "Allow JobTrack to access your photos so you can choose a profile picture."
+        }
+      ]
+    ],
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}

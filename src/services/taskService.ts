@@ -1,0 +1,10 @@
+import { requireSupabase } from '../lib/supabase';
+import type { TaskFormValues } from '../schemas/taskGoalSchemas';
+
+export type CareerTask = { id: string; application_id: string | null; title: string; description: string | null; deadline: string | null; priority: 'LOW' | 'MEDIUM' | 'HIGH'; completed: boolean; completed_at: string | null };
+async function userId() { const { data, error } = await requireSupabase().auth.getUser(); if (error) throw error; if (!data.user) throw new Error('Authentication is required.'); return data.user.id; }
+export async function getTasks(): Promise<CareerTask[]> { const { data, error } = await requireSupabase().from('tasks').select('*').order('completed').order('deadline'); if (error) throw error; return data as CareerTask[]; }
+export async function createTask(values: TaskFormValues): Promise<CareerTask> { const { data, error } = await requireSupabase().from('tasks').insert({ user_id: await userId(), application_id: values.applicationId || null, title: values.title, description: values.description || null, deadline: values.deadline || null, priority: values.priority }).select('*').single(); if (error) throw error; return data as CareerTask; }
+export async function updateTask(id: string, values: Partial<TaskFormValues>): Promise<CareerTask> { const { data, error } = await requireSupabase().from('tasks').update({ application_id: values.applicationId || null, title: values.title, description: values.description, deadline: values.deadline || null, priority: values.priority }).eq('id', id).select('*').single(); if (error) throw error; return data as CareerTask; }
+export async function setTaskCompleted(id: string, completed: boolean): Promise<CareerTask> { const { data, error } = await requireSupabase().from('tasks').update({ completed, completed_at: completed ? new Date().toISOString() : null }).eq('id', id).select('*').single(); if (error) throw error; return data as CareerTask; }
+export async function deleteTask(id: string): Promise<void> { const { error } = await requireSupabase().from('tasks').delete().eq('id', id); if (error) throw error; }

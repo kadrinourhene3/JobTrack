@@ -1,0 +1,4 @@
+project_id = "jobtrack"
+
+[functions.ai-career]
+verify_jwt = true

@@ -1,0 +1,8 @@
+import { requireSupabase } from '../lib/supabase';
+
+export type PreparationItem = { id: string; interview_id: string; item_type: 'QUESTION' | 'ANSWER' | 'STAR_STORY' | 'RECRUITER_QUESTION' | 'NOTE'; title: string | null; content: string; completed: boolean; sort_order: number };
+async function userId() { const { data, error } = await requireSupabase().auth.getUser(); if (error) throw error; if (!data.user) throw new Error('Authentication is required.'); return data.user.id; }
+export async function getPreparation(interviewId: string): Promise<PreparationItem[]> { const { data, error } = await requireSupabase().from('interview_preparation').select('*').eq('interview_id', interviewId).order('sort_order'); if (error) throw error; return data as PreparationItem[]; }
+export async function createPreparationItem(interviewId: string, values: Omit<PreparationItem, 'id' | 'interview_id'>): Promise<PreparationItem> { const { data, error } = await requireSupabase().from('interview_preparation').insert({ ...values, interview_id: interviewId, user_id: await userId() }).select('*').single(); if (error) throw error; return data as PreparationItem; }
+export async function updatePreparationItem(id: string, values: Partial<Omit<PreparationItem, 'id' | 'interview_id'>>): Promise<PreparationItem> { const { data, error } = await requireSupabase().from('interview_preparation').update(values).eq('id', id).select('*').single(); if (error) throw error; return data as PreparationItem; }
+export async function deletePreparationItem(id: string): Promise<void> { const { error } = await requireSupabase().from('interview_preparation').delete().eq('id', id); if (error) throw error; }

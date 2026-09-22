@@ -1,0 +1,9 @@
+import { requireSupabase } from '../lib/supabase';
+import type { GoalFormValues } from '../schemas/taskGoalSchemas';
+
+export type Goal = { id: string; title: string; period: 'WEEKLY' | 'MONTHLY'; metric: string; target: number; current_value: number; starts_at: string; ends_at: string; completed: boolean };
+async function userId() { const { data, error } = await requireSupabase().auth.getUser(); if (error) throw error; if (!data.user) throw new Error('Authentication is required.'); return data.user.id; }
+export async function getActiveGoals(): Promise<Goal[]> { const today = new Date().toISOString().slice(0, 10); const { data, error } = await requireSupabase().from('goals').select('*').lte('starts_at', today).gte('ends_at', today).order('period'); if (error) throw error; return data as Goal[]; }
+export async function createGoal(values: GoalFormValues): Promise<Goal> { const { data, error } = await requireSupabase().from('goals').insert({ user_id: await userId(), title: values.title, description: values.description || null, period: values.period, metric: values.metric, target: values.target, starts_at: values.startsAt, ends_at: values.endsAt }).select('*').single(); if (error) throw error; return data as Goal; }
+export async function updateGoal(id: string, values: Partial<GoalFormValues> & { currentValue?: number }): Promise<Goal> { const { data, error } = await requireSupabase().from('goals').update({ title: values.title, description: values.description, period: values.period, metric: values.metric, target: values.target, starts_at: values.startsAt, ends_at: values.endsAt, current_value: values.currentValue }).eq('id', id).select('*').single(); if (error) throw error; return data as Goal; }
+export async function deleteGoal(id: string): Promise<void> { const { error } = await requireSupabase().from('goals').delete().eq('id', id); if (error) throw error; }

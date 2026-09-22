@@ -1,0 +1,13 @@
+node_modules/
+.expo/
+.expo-check/
+.expo-webcheck/
+.expo-*/
+dist/
+*.log
+.DS_Store
+.env
+.env.local
+.env.*.local
+# Supabase local temporary files
+supabase/.temp/
